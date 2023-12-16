@@ -37,8 +37,8 @@ const authMiddleware = (req, res, next ) => {
 router.get('/admin', async (req, res) => {
   try {
     const locals = {
-      title: "Admin",
-      description: "Simple Blog created with NodeJs, Express & MongoDb."
+      title: "Әкімші",
+      description: ""
     }
 
     res.render('admin/index', { locals, layout: adminLayout });
@@ -59,13 +59,13 @@ router.post('/admin', async (req, res) => {
     const user = await User.findOne( { username } );
 
     if(!user) {
-      return res.status(401).json( { message: 'Invalid credentials' } );
+      return res.status(401).json( { message: 'Жарамсыз тіркелгі деректері' } );
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if(!isPasswordValid) {
-      return res.status(401).json( { message: 'Invalid credentials' } );
+      return res.status(401).json( { message: 'Жарамсыз тіркелгі деректері' } );
     }
 
     const token = jwt.sign({ userId: user._id}, jwtSecret );
@@ -85,7 +85,7 @@ router.post('/admin', async (req, res) => {
 router.get('/dashboard', authMiddleware, async (req, res) => {
   try {
     const locals = {
-      title: 'Dashboard',
+      title: 'Бақылау тақтасы',
       description: 'Simple Blog created with NodeJs, Express & MongoDb.'
     }
 
@@ -110,7 +110,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
 router.get('/add-post', authMiddleware, async (req, res) => {
   try {
     const locals = {
-      title: 'Add Post',
+      title: 'Хабарлама қосу',
       description: 'Simple Blog created with NodeJs, Express & MongoDb.'
     }
 
@@ -159,7 +159,7 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
   try {
 
     const locals = {
-      title: "Edit Post",
+      title: "Хабарламаны өңдеу",
       description: "Free NodeJs User Management System",
     };
 
@@ -227,12 +227,12 @@ router.post('/register', async (req, res) => {
 
     try {
       const user = await User.create({ username, password:hashedPassword });
-      res.status(201).json({ message: 'User Created', user });
+      res.status(201).json({ message: 'Пайдаланушы жасаған', user });
     } catch (error) {
       if(error.code === 11000) {
-        res.status(409).json({ message: 'User already in use'});
+        res.status(409).json({ message: 'Пайдаланушы қазірдің өзінде қолданылады'});
       }
-      res.status(500).json({ message: 'Internal server error'})
+      res.status(500).json({ message: 'Ішкі сервер қатесі'})
     }
 
   } catch (error) {
