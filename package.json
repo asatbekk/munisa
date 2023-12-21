@@ -20,14 +20,14 @@
   },
   "name": "readyprojectmunisakennoi",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "devDependencies": {
     "nodemon": "^2.0.22"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "dev": "node index.js"
+    "start": "nodemon app.js",
+    "dev": "node app.js"
   },
   "author": "",
   "license": "ISC",
