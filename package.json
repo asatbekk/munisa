@@ -15,7 +15,7 @@
     "node": "^21.2.0",
     "punycode": "^2.3.1",
     "punycode.js": "^2.3.1",
-    "utils": "^0.3.1"
+    "utils": "^0.2.2"
   },
   "name": "readyprojectmunisakennoi",
   "version": "1.0.0",
@@ -24,7 +24,7 @@
     "nodemon": "^3.0.2"
   },
   "scripts": {
-    "build":"node ./",
+    "build": "node ./",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js"
