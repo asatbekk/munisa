@@ -11,7 +11,7 @@ const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
 
 const app = express();
-const port =5000;
+const PORT = process.env.PORT || 5000;
   
 // Connect to DB
 connectDB();
@@ -26,7 +26,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
-    mongoUrl: "mongodb+srv://asatcom26:CvxofHyNZV8of8UO@cluster0.gp5wbn9.mongodb.net/blog"
+    mongoUrl: process.env.MONGODB_URI
   }),
   //cookie: { maxAge: new Date ( Date.now() + (3600000) ) } 
 }));
@@ -41,9 +41,10 @@ app.set('view engine', 'ejs');
 
 app.locals.isActiveRoute = isActiveRoute; 
 
+
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 
 app.listen(PORT, ()=> {
-  console.log(`App listening on port ${port}`);
+  console.log(`App listening on port ${PORT}`);
 });
