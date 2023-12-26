@@ -23,15 +23,42 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 
-app.use(session({
-  secret: 'MySecret',
-  resave: false,
-  saveUninitialized: true,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI
-  }),
-  cookie: { maxAge: new Date ( Date.now() + (3600000) ) } 
-}));
+
+
+
+
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true, 
+useUnifiedTopology: true, useFindAndModify: true });
+const connection = mongoose.connection;
+
+connection.once('open', () => {
+    console.log("database connected successfully...");
+}).catch(err => {
+    console.log("connection failed...");
+});
+
+// session store
+
+let store = new MongoStore({
+   mongoUrl: url,
+   collection: "sessions"
+});
+
+ // session config
+
+ app.use(session({
+   secret: "MySecret",
+   resave: false,
+   store: store,
+   saveUninitialized: false,
+   cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
+ }));
+
+
+
+
+
 
 app.use(express.static('public'));
 
