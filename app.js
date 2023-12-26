@@ -33,7 +33,7 @@ module.exports = connectDB;
 
 
 
-mongoose.connect(process.env.MONGODB_URI ||'mongodb://127.0.0.1:27017/test', {  useCreatendex: true, 
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://192.168.1.249:27017/', {  useCreatendex: true, 
   useFindAndModify: false, 
   useNewUrlParser: true, 
   useUnifiedTopology: true });
@@ -43,7 +43,7 @@ const connection = mongoose.connection;
 // session store
 
 let store = new MongoStore({
-   mongoUrl: process.env.MONGODB_URI ||'mongodb://127.0.0.1:27017/test',
+   mongoUrl: process.env.MONGODB_URI ||'mongodb://192.168.1.249:27017/',
    collection: "sessions"
 });
 
