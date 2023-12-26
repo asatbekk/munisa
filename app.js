@@ -33,7 +33,10 @@ module.exports = connectDB;
 
 
 
-mongoose.connect(process.env.MONGODB_URI, { });
+mongoose.connect(process.env.MONGODB_URI, {  useCreatendex: true, 
+  useFindAndModify: false, 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true });
 const connection = mongoose.connection;
 
 
