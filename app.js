@@ -24,13 +24,13 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'MySecret',
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI
   }),
-  //cookie: { maxAge: new Date ( Date.now() + (3600000) ) } 
+  cookie: { maxAge: new Date ( Date.now() + (3600000) ) } 
 }));
 
 app.use(express.static('public'));
