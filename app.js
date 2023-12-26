@@ -26,22 +26,21 @@ app.use(methodOverride('_method'));
 
 
 
+const mongoose = require('mongoose');
+
+module.exports = connectDB;
 
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, 
-useUnifiedTopology: true});
+
+
+mongoose.connect(process.env.MONGODB_URI, { });
 const connection = mongoose.connection;
 
-connection.once('open', () => {
-    console.log("database connected successfully...");
-}).catch(err => {
-    console.log("connection failed...");
-});
 
 // session store
 
 let store = new MongoStore({
-   mongoUrl: url,
+   mongoUrl: process.env.MONGODB_URI,
    collection: "sessions"
 });
 
