@@ -26,44 +26,32 @@ app.use(methodOverride('_method'));
 
 
 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://asatcom26:CvxofHyNZV8of8UO@cluster0.gp5wbn9.mongodb.net/blog?retryWrites=true&w=majority";
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 
 const mongoose = require('mongoose');
-
-let conn = null;
-
-const uri = process.env.MONGODB_URI
-
-exports.handler = async function(event, context) {
-  // Make sure to add this so you can re-use `conn` between function calls.
-  // See https://www.mongodb.com/blog/post/serverless-development-with-nodejs-aws-lambda-mongodb-atlas
-  context.callbackWaitsForEmptyEventLoop = false;
-
-  // Because `conn` is in the global scope, Lambda may retain it between
-  // function calls thanks to `callbackWaitsForEmptyEventLoop`.
-  // This means your Lambda function doesn't have to go through the
-  // potentially expensive process of connecting to MongoDB every time.
-  if (conn == null) {
-    conn = mongoose.createConnection(process.env.MONGODB_URI, {
-      // and tell the MongoDB driver to not wait more than 5 seconds
-      // before erroring out if it isn't connected
-      serverSelectionTimeoutMS: 5000
-    });
-
-    // `await`ing connection after assigning to the `conn` variable
-    // to avoid multiple function calls creating new connections
-    await conn.asPromise();
-    conn.model('Test', new mongoose.Schema({ name: String }));
-  }
-
-  const M = conn.model('Test');
-
-  const doc = await M.findOne();
-  console.log(doc);
-
-  return doc;
-};
-
-
 
 module.exports = connectDB;
 
