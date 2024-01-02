@@ -58,7 +58,7 @@ module.exports = connectDB;
 
 
 
-mongoose.connect("mongodb+srv://asatcom26:CvxofHyNZV8of8UO@cluster0.gp5wbn9.mongodb.net/blog" || process.env.MONGODB_URI||'mongodb://192.168.1.249:27017/', {  useCreatendex: true, 
+mongoose.connect("mongodb+srv://asatcom26:CvxofHyNZV8of8UO@cluster0.gp5wbn9.mongodb.net/blog" || process.env.MONGODB_URI, {  useCreatendex: true, 
   useFindAndModify: false, 
   useNewUrlParser: true, 
   useUnifiedTopology: true });
@@ -68,7 +68,7 @@ const connection = mongoose.connection;
 // session store
 
 let store = new MongoStore({
-   mongoUrl:"mongodb+srv://asatcom26:CvxofHyNZV8of8UO@cluster0.gp5wbn9.mongodb.net/blog"|| process.env.MONGODB_URI ||'mongodb://192.168.1.249:27017/',
+   mongoUrl:"mongodb+srv://asatcom26:CvxofHyNZV8of8UO@cluster0.gp5wbn9.mongodb.net/blog"|| process.env.MONGODB_URI ,
    collection: "sessions"
 });
 
